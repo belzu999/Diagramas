@@ -78,6 +78,9 @@
 
         .btn-container {
             margin-top: 20px;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
         }
 
         .next-btn, .restart-btn {
@@ -105,58 +108,65 @@
             background-color: #b71c1c;
         }
 
-        /* Buraco negro */
-        .black-hole {
-            position: absolute;
-            top: 20px; /* Ajuste para o canto superior esquerdo */
-            left: 20px;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0) 70%);
-            box-shadow: 0 0 50px 20px rgba(0, 0, 0, 0.5);
-            animation: spin 10s linear infinite;
-            z-index: 0;
-        }
-
-        .black-hole.bottom-right {
-            top: auto;
-            left: auto;
-            bottom: 20px; /* Ajuste para o canto inferior direito */
-            right: 20px;
-        }
-
-        .black-hole.top-right {
-            top: 20px; /* Ajuste para o canto superior direito */
-            left: auto;
-            right: 20px;
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                padding: 10px;
             }
-            to {
-                transform: rotate(360deg);
+
+            .game-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .question {
+                font-size: 18px;
+            }
+
+            .answer-btn {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            .btn-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .next-btn, .restart-btn {
+                width: 100%;
             }
         }
 
-        /* Partículas ao redor do buraco negro */
-        .particle {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: white;
-            border-radius: 50%;
-            animation: orbit 5s linear infinite;
-        }
-
-        @keyframes orbit {
-            from {
-                transform: rotate(0deg) translateX(150px) rotate(0deg);
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
             }
-            to {
-                transform: rotate(360deg) translateX(150px) rotate(-360deg);
+
+            .game-container {
+                width: 100%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            .question {
+                font-size: 16px;
+            }
+
+            .answer-btn {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .btn-container {
+                gap: 8px;
             }
         }
     </style>
@@ -291,7 +301,10 @@
 
         function checkAnswer(selectedOption, button) {
             const question = questions[currentQuestionIndex];
-            document.querySelectorAll('.answer-btn').forEach(btn => btn.classList.remove('selected'));
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                btn.disabled = true; // Desativa todos os botões
+            });
             button.classList.add('selected');
 
             if (selectedOption === question.correctAnswer) {
