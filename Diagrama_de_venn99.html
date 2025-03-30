@@ -39,6 +39,7 @@
             color: cyan;
             text-shadow: 0 0 5px cyan, 0 0 20px cyan, 0 0 40px cyan;
             animation: flicker 1.5s infinite alternate;
+            margin-bottom: 20px;
         }
 
         @keyframes flicker {
@@ -49,10 +50,10 @@
 
         /* Caixa de Texto Glow */
         .box {
-            margin: 20px auto;
-            padding: 20px;
-            width: 80%;
-            max-width: 600px;
+            margin: 10px auto;
+            padding: 15px;
+            width: 90%;
+            max-width: 500px;
             border-radius: 10px;
             background: rgba(0, 255, 255, 0.1);
             box-shadow: 0 0 10px cyan, 0 0 20px cyan;
@@ -67,11 +68,60 @@
         .fade-in {
             opacity: 0;
             animation: fadeIn 2s forwards;
+            font-size: 1rem;
+            margin-bottom: 20px;
         }
 
         @keyframes fadeIn {
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .neon-text {
+                font-size: 2.5rem; /* Reduz o tamanho do texto neon */
+            }
+
+            .box {
+                width: 95%; /* Aumenta a largura para ocupar mais espaço */
+                padding: 10px; /* Reduz o padding */
+            }
+
+            .box h2 {
+                font-size: 1.2rem; /* Reduz o tamanho do título */
+            }
+
+            .box p {
+                font-size: 1rem; /* Reduz o tamanho do texto */
+            }
+
+            .fade-in {
+                font-size: 0.9rem; /* Reduz o tamanho do texto de introdução */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .neon-text {
+                font-size: 2rem; /* Reduz ainda mais o tamanho do texto neon */
+            }
+
+            .box {
+                width: 100%; /* Ocupa toda a largura */
+                padding: 8px; /* Reduz o padding */
+            }
+
+            .box h2 {
+                font-size: 1rem; /* Reduz o tamanho do título */
+            }
+
+            .box p {
+                font-size: 0.8rem; /* Reduz o tamanho do texto */
+            }
+
+            .fade-in {
+                font-size: 0.8rem; /* Reduz o tamanho do texto de introdução */
+            }
         }
     </style>
 </head>
