@@ -32,6 +32,7 @@
 
         h1 {
             font-size: 2.5rem;
+            margin-bottom: 20px;
         }
 
         .container {
@@ -91,6 +92,57 @@
 
         @keyframes blink {
             50% { opacity: 0; }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem; /* Reduz o tamanho do título */
+            }
+
+            .container {
+                gap: 20px; /* Reduz o espaçamento entre os elementos */
+            }
+
+            .venn-box {
+                width: 250px; /* Reduz a largura das caixas */
+                height: 250px; /* Reduz a altura das caixas */
+            }
+
+            .venn-diagram {
+                width: 150px; /* Reduz o tamanho do diagrama */
+                height: 150px;
+            }
+
+            .explanation {
+                font-size: 1rem; /* Reduz o tamanho do texto */
+                padding: 15px; /* Reduz o padding */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem; /* Reduz ainda mais o tamanho do título */
+            }
+
+            .container {
+                gap: 15px; /* Reduz o espaçamento entre os elementos */
+            }
+
+            .venn-box {
+                width: 200px; /* Reduz ainda mais a largura das caixas */
+                height: 200px; /* Reduz ainda mais a altura das caixas */
+            }
+
+            .venn-diagram {
+                width: 120px; /* Reduz ainda mais o tamanho do diagrama */
+                height: 120px;
+            }
+
+            .explanation {
+                font-size: 0.9rem; /* Reduz o tamanho do texto */
+                padding: 10px; /* Reduz o padding */
+            }
         }
     </style>
 </head>
