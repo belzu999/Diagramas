@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://th.bing.com/th/id/OIP.Hn8wLZaz32JXVtBo7t5xKgHaHa?w=186&h=186&c=7&r=0&o=5&pid=1.7" type="image/x-icon">
+    "
+    <title>Diagrama de Venn - Neon Stars</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Texto Neon */
+        .neon-text {
+            font-size: 3rem;
+            text-transform: uppercase;
+            color: cyan;
+            text-shadow: 0 0 5px cyan, 0 0 20px cyan, 0 0 40px cyan;
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        /* Caixa de Texto Glow */
+        .box {
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 10px cyan, 0 0 20px cyan;
+            transition: 0.5s;
+        }
+
+        .box:hover {
+            box-shadow: 0 0 20px cyan, 0 0 40px cyan;
+            transform: scale(1.05);
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starsCanvas"></canvas> <!-- Estrelas animadas -->
+
+    <div class="container">
+        <h1 class="neon-text">Diagrama de Venn</h1>
+        
+        <p class="fade-in">
+            O Diagrama de Venn representa conjuntos e suas relações, como união, interseção e diferença.
+        </p>
+
+        <div class="box">
+            <h2>🔷 União (A ∪ B)</h2>
+            <p>É o conjunto de todos os elementos pertencentes a A ou a B.</p>
+        </div>
+
+        <div class="box">
+            <h2>🔷 Interseção (A ∩ B)</h2>
+            <p>Conjunto dos elementos que pertencem tanto a A quanto a B.</p>
+        </div>
+
+        <div class="box">
+            <h2>🔷 Diferença (A - B)</h2>
+            <p>Conjunto dos elementos que estão em A, mas não em B.</p>
+        </div>
+
+        <div class="box">
+            <h2>🔷 Inclusão (A ⊆ B)</h2>
+            <p>Indica que todos os elementos de A também pertencem a B.</p>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("starsCanvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let stars = [];
+
+        function createStars() {
+            stars = [];
+            for (let i = 0; i < 50; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 4 + 2,
+                    speedY: Math.random() * 0.5 + 0.2
+                });
+            }
+        }
+
+        function drawStar(x, y, size) {
+            const spikes = 5;
+            const step = Math.PI / spikes;
+            ctx.beginPath();
+            ctx.moveTo(x, y - size);
+
+            for (let i = 0; i < spikes * 2; i++) {
+                let angle = i * step;
+                let radius = i % 2 === 0 ? size : size / 2;
+                let starX = x + Math.cos(angle) * radius;
+                let starY = y - Math.sin(angle) * radius;
+                ctx.lineTo(starX, starY);
+            }
+            
+            ctx.closePath();
+            ctx.fillStyle = "cyan";
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = "cyan";
+            ctx.fill();
+        }
+
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            stars.forEach(star => {
+                drawStar(star.x, star.y, star.size);
+            });
+        }
+
+        function animateStars() {
+            stars.forEach(star => {
+                star.y += star.speedY;
+                if (star.y > canvas.height) {
+                    star.y = 0;
+                    star.x = Math.random() * canvas.width;
+                }
+            });
+
+            drawStars();
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            createStars();
+        });
+
+        createStars();
+        animateStars();
+    </script>
+</body>
+</html>

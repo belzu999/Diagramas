@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://th.bing.com/th/id/OIP.Hn8wLZaz32JXVtBo7t5xKgHaHa?w=186&h=186&c=7&r=0&o=5&pid=1.7" type="image/x-icon">
+    <title>Jogo de Perguntas - Diagramas de Venn</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at top, #00eaff, #001f3f);
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .game-container {
+            background: rgba(0, 150, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            width: 450px;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+
+        .question {
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .answers {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .answer-btn {
+            padding: 12px;
+            background: linear-gradient(90deg, #00ffff, #0088ff);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+        }
+
+        .answer-btn:hover {
+            background: linear-gradient(90deg, #00bbff, #0066ff);
+            transform: scale(1.05);
+        }
+
+        .selected {
+            background: linear-gradient(90deg, #ff9100, #ff6500);
+            transform: scale(1.1);
+        }
+
+        .result {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+
+        .next-btn, .restart-btn {
+            padding: 12px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+
+        .next-btn:hover, .restart-btn:hover {
+            background-color: #388e3c;
+        }
+
+        .restart-btn {
+            background-color: #d32f2f;
+            display: none;
+        }
+
+        .restart-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Buraco negro */
+        .black-hole {
+            position: absolute;
+            top: 20px; /* Ajuste para o canto superior esquerdo */
+            left: 20px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 40%, rgba(0, 0, 0, 0) 70%);
+            box-shadow: 0 0 50px 20px rgba(0, 0, 0, 0.5);
+            animation: spin 10s linear infinite;
+            z-index: 0;
+        }
+
+        .black-hole.bottom-right {
+            top: auto;
+            left: auto;
+            bottom: 20px; /* Ajuste para o canto inferior direito */
+            right: 20px;
+        }
+
+        .black-hole.top-right {
+            top: 20px; /* Ajuste para o canto superior direito */
+            left: auto;
+            right: 20px;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Partículas ao redor do buraco negro */
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            animation: orbit 5s linear infinite;
+        }
+
+        @keyframes orbit {
+            from {
+                transform: rotate(0deg) translateX(150px) rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg) translateX(150px) rotate(-360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Buracos negros -->
+    <div class="black-hole"></div>
+    <div class="black-hole top-right"></div>
+    <div class="black-hole bottom-right"></div>
+
+    <div class="game-container">
+        <h1>Jogo de Perguntas - Diagramas de Venn</h1>
+        <p class="question" id="question-text"></p>
+        <div class="answers" id="answer-buttons"></div>
+        <div class="result" id="result"></div>
+        <div class="btn-container">
+            <button class="next-btn" id="next-btn" style="display: none;" onclick="nextQuestion()">Próxima Pergunta</button>
+            <button class="restart-btn" id="restart-btn" onclick="restartGame()">Tente Novamente</button>
+        </div>
+    </div>
+
+    <script>
+        // Adiciona partículas ao redor de cada buraco negro
+        const blackHoles = document.querySelectorAll('.black-hole');
+        blackHoles.forEach(blackHole => {
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                blackHole.appendChild(particle);
+            }
+        });
+    </script>
+
+    <!-- Adicione o script do tsparticles -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.0/tsparticles.bundle.min.js"></script>
+    <script>
+        // Configuração das partículas
+        tsParticles.load("particle-canvas", {
+            particles: {
+                number: {
+                    value: 100,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                shape: {
+                    type: "star", // Formato de estrela
+                    options: {
+                        star: {
+                            sides: 5
+                        }
+                    }
+                },
+                size: {
+                    value: 4,
+                    random: true
+                },
+                opacity: {
+                    value: 0.8,
+                    random: true
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                },
+                color: {
+                    value: ["#ffffff", "#ffcc00", "#00ffff"]
+                }
+            },
+            interactivity: {
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "repulse"
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push"
+                    }
+                },
+                modes: {
+                    repulse: {
+                        distance: 100,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            background: {
+                color: "transparent"
+            }
+        });
+    </script>
+
+    <script>
+        const questions = [
+            { question: "Qual é a interseção entre A={1,2,3} e B={2,3,4}?", options: ["{1}", "{2,3}", "{4}", "{1,2,3}"], correctAnswer: "{2,3}" },
+            { question: "Qual é a união de A={a,b} e B={b,c}?", options: ["{a,b}", "{a,b,c}", "{b}", "{a}"], correctAnswer: "{a,b,c}" }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function displayQuestion() {
+            const question = questions[currentQuestionIndex];
+            document.getElementById('question-text').innerText = question.question;
+            
+            const answerButtons = document.getElementById('answer-buttons');
+            answerButtons.innerHTML = '';
+
+            question.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('answer-btn');
+                button.onclick = () => checkAnswer(option, button);
+                answerButtons.appendChild(button);
+            });
+
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('restart-btn').style.display = 'none';
+            document.getElementById('result').innerText = '';
+        }
+
+        function checkAnswer(selectedOption, button) {
+            const question = questions[currentQuestionIndex];
+            document.querySelectorAll('.answer-btn').forEach(btn => btn.classList.remove('selected'));
+            button.classList.add('selected');
+
+            if (selectedOption === question.correctAnswer) {
+                document.getElementById('result').innerText = "✅ Correto!";
+                document.getElementById('next-btn').style.display = 'inline-block';
+            } else {
+                document.getElementById('result').innerText = "❌ Errado! Tente novamente.";
+                document.getElementById('restart-btn').style.display = 'inline-block';
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                document.getElementById('result').innerText = "🎉 Parabéns! Você completou o jogo!";
+                document.getElementById('restart-btn').style.display = 'inline-block';
+                document.getElementById('next-btn').style.display = 'none';
+            }
+        }
+
+        function restartGame() {
+            currentQuestionIndex = 0;
+            displayQuestion();
+        }
+
+        displayQuestion();
+    </script>
+
+</body>
+</html>
