@@ -46,21 +46,21 @@
         .venn-box {
             width: 300px;
             height: 300px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(51, 67, 71, 0);
             border-radius: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             transition: transform 0.3s, background 0.3s;
-            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+            box-shadow: 0px 0px 25px cyan;
             cursor: pointer;
             padding: 10px;
         }
 
         .venn-box:hover {
             transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(0, 255, 255, 0.2);
         }
 
         .venn-diagram {
@@ -83,7 +83,7 @@
             max-width: 800px;
             margin: 40px auto;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 255, 255, 0.2);
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
             min-height: 60px;
@@ -168,25 +168,25 @@
     <div class="container">
         <div class="venn-box" id="union" onmouseover="showExplanation('union')">
             <div class="venn-diagram">
-                <img src="https://static.todamateria.com.br/upload/un/ia/uniao.jpg" alt="União (A ∪ B)" class="venn-image">
+                <img src="t:\tomaz\imagem-união.png" alt="União (A ∪ B)" class="venn-image">
             </div>
             <p><strong>União (A ∪ B)</strong></p>
         </div>
         <div class="venn-box" id="intersection" onmouseover="showExplanation('intersection')">
             <div class="venn-diagram">
-                <img src="https://static.todamateria.com.br/upload/in/te/interseca_ao.jpg" alt="Interseção (A ∩ B)" class="venn-image">
+                <img src="t:\tomaz\imagem-interseção.png" alt="Interseção (A ∩ B)" class="venn-image">
             </div>
             <p><strong>Interseção (A ∩ B)</strong></p>
         </div>
         <div class="venn-box" id="difference" onmouseover="showExplanation('difference')">
             <div class="venn-diagram">
-                <img src="https://static.todamateria.com.br/upload/di/fe/diferena_a.jpg" alt="Diferença (A - B)" class="venn-image">
+                <img src="t:\tomaz\imagem-diferença.png" alt="Diferença (A - B)" class="venn-image">
             </div>
             <p><strong>Diferença (A - B)</strong></p>
         </div>
         <div class="venn-box" id="subset" onmouseover="showExplanation('subset')">
             <div class="venn-diagram">
-                <img src="https://images.educamaisbrasil.com.br/content/banco_de_imagens/guia-de-estudo/D/diagrama-de-venn.jpg" alt="Inclusão (A ⊆ B)" class="venn-image">
+                <img src="t:\tomaz\imagem-inclusão.png" alt="Inclusão (A ⊆ B)" class="venn-image">
             </div>
             <p><strong>Inclusão (A ⊆ B)</strong></p>
         </div>
