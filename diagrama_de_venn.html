@@ -274,8 +274,38 @@
     <script>
         const questions = [
             { question: "Qual é a interseção entre A={1,2,3} e B={2,3,4}?", options: ["{1}", "{2,3}", "{4}", "{1,2,3}"], correctAnswer: "{2,3}" },
-            { question: "Qual é a união de A={a,b} e B={b,c}?", options: ["{a,b}", "{a,b,c}", "{b}", "{a}"], correctAnswer: "{a,b,c}" }
+            { question: "Qual é a união de A={a,b} e B={b,c}?", options: ["{a,b}", "{a,b,c}", "{b}", "{a}"], correctAnswer: "{a,b,c}" },
+            { question: "Qual é o complemento de A={1,2} em U={1,2,3,4}?", options: ["{3,4}", "{1,2}", "{2,3}", "{1,4}"], correctAnswer: "{3,4}" },
+            { question: "Qual é a diferença entre A={x,y,z} e B={y,z}?", options: ["{x}", "{y}", "{z}", "{x,y}"], correctAnswer: "{x}" },
+            { question: "Se A={1,2} e B={2,3}, qual é A ∩ B?", options: ["{1}", "{2}", "{3}", "{1,2,3}"], correctAnswer: "{2}" },
+            { question: "Se A={a,b,c} e B={b,c,d}, qual é A ∪ B?", options: ["{a,b,c,d}", "{b,c}", "{a,b}", "{c,d}"], correctAnswer: "{a,b,c,d}" },
+            { question: "Qual é o conjunto vazio?", options: ["{}", "{0}", "{1}", "{ }"], correctAnswer: "{}" },
+            { question: "Se A={1,2,3} e B={4,5,6}, qual é A ∩ B?", options: ["{}", "{1,2,3}", "{4,5,6}", "{1,4}"], correctAnswer: "{}" },
+            { question: "Qual é a interseção entre A={x,y} e B={y,z}?", options: ["{x}", "{y}", "{z}", "{x,z}"], correctAnswer: "{y}" },
+            { question: "Se A={1,2,3} e B={2,3,4}, qual é A - B?", options: ["{1}", "{2}", "{3}", "{4}"], correctAnswer: "{1}" },
+            { question: "Qual é a união de A={a} e B={b,c}?", options: ["{a,b}", "{a,b,c}", "{b}", "{a}"], correctAnswer: "{a,b,c}" },
+            { question: "Se A={1,2} e B={2,3}, qual é A ∩ B?", options: ["{1}", "{2}", "{3}", "{1,2,3}"], correctAnswer: "{2}" },
+            { question: "Qual é o complemento de A={x} em U={x,y,z}?", options: ["{y,z}", "{x}", "{z}", "{x,y}"], correctAnswer: "{y,z}" },
+            { question: "Se A={a,b} e B={b,c}, qual é A ∪ B?", options: ["{a,b,c}", "{b,c}", "{a,b}", "{c}"], correctAnswer: "{a,b,c}" },
+            { question: "Qual é a diferença entre A={1,2,3} e B={2,3}?", options: ["{1}", "{2}", "{3}", "{1,2}"], correctAnswer: "{1}" },
+            { question: "Se A={1,2} e B={3,4}, qual é A ∩ B?", options: ["{}", "{1,2}", "{3,4}", "{1,3}"], correctAnswer: "{}" },
+            { question: "Qual é a interseção entre A={a,b,c} e B={b,c,d}?", options: ["{a}", "{b,c}", "{d}", "{a,b}"], correctAnswer: "{b,c}" },
+            { question: "Se A={1,2,3} e B={2,3,4}, qual é A ∪ B?", options: ["{1,2,3,4}", "{2,3}", "{1,4}", "{1,2}"], correctAnswer: "{1,2,3,4}" },
+            { question: "Qual é o complemento de A={1} em U={1,2,3}?", options: ["{2,3}", "{1}", "{3}", "{1,2}"], correctAnswer: "{2,3}" },
+            { question: "Se A={x,y} e B={y,z}, qual é A - B?", options: ["{x}", "{y}", "{z}", "{x,z}"], correctAnswer: "{x}" },
+            { question: "Qual é a união de A={1} e B={2,3}?", options: ["{1,2,3}", "{2,3}", "{1}", "{1,2}"], correctAnswer: "{1,2,3}" },
+            { question: "Se A={a,b} e B={b,c}, qual é A ∩ B?", options: ["{a}", "{b}", "{c}", "{a,b}"], correctAnswer: "{b}" },
+            { question: "Qual é a diferença entre A={1,2} e B={1}?", options: ["{2}", "{1}", "{1,2}", "{}"], correctAnswer: "{2}" },
+            { question: "Se A={x,y,z} e B={y,z}, qual é A ∩ B?", options: ["{x}", "{y,z}", "{z}", "{x,y}"], correctAnswer: "{y,z}" },
+            { question: "Qual é a interseção entre A={1,2,3} e B={3,4,5}?", options: ["{3}", "{1,2}", "{4,5}", "{1,3}"], correctAnswer: "{3}" },
+            { question: "Se A={a,b,c} e B={b,c,d}, qual é A - B?", options: ["{a}", "{b}", "{c}", "{d}"], correctAnswer: "{a}" },
+            { question: "Qual é a união de A={1,2} e B={3,4}?", options: ["{1,2,3,4}", "{2,3}", "{1,4}", "{1,2}"], correctAnswer: "{1,2,3,4}" },
+            { question: "Se A={x} e B={x,y}, qual é A ∩ B?", options: ["{x}", "{y}", "{z}", "{}"], correctAnswer: "{x}" },
+            { question: "Qual é o complemento de A={a} em U={a,b,c}?", options: ["{b,c}", "{a}", "{c}", "{a,b}"], correctAnswer: "{b,c}" }
         ];
+
+        // Embaralha as questões
+        questions.sort(() => Math.random() - 0.5);
 
         let currentQuestionIndex = 0;
 
