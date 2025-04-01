@@ -64,8 +64,18 @@
         }
 
         .venn-diagram {
+            position: relative;
             width: 200px;
             height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .venn-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
         .explanation {
@@ -157,42 +167,32 @@
 
     <div class="container">
         <div class="venn-box" id="union" onmouseover="showExplanation('union')">
-            <div class="venn-diagram"></div>
+            <div class="venn-diagram">
+                <img src="https://static.todamateria.com.br/upload/un/ia/uniao.jpg" alt="União (A ∪ B)" class="venn-image">
+            </div>
             <p><strong>União (A ∪ B)</strong></p>
         </div>
         <div class="venn-box" id="intersection" onmouseover="showExplanation('intersection')">
-            <div class="venn-diagram"></div>
+            <div class="venn-diagram">
+                <img src="https://static.todamateria.com.br/upload/in/te/interseca_ao.jpg" alt="Interseção (A ∩ B)" class="venn-image">
+            </div>
             <p><strong>Interseção (A ∩ B)</strong></p>
         </div>
         <div class="venn-box" id="difference" onmouseover="showExplanation('difference')">
-            <div class="venn-diagram"></div>
+            <div class="venn-diagram">
+                <img src="https://static.todamateria.com.br/upload/di/fe/diferena_a.jpg" alt="Diferença (A - B)" class="venn-image">
+            </div>
             <p><strong>Diferença (A - B)</strong></p>
         </div>
         <div class="venn-box" id="subset" onmouseover="showExplanation('subset')">
-            <div class="venn-diagram"></div>
+            <div class="venn-diagram">
+                <img src="https://images.educamaisbrasil.com.br/content/banco_de_imagens/guia-de-estudo/D/diagrama-de-venn.jpg" alt="Inclusão (A ⊆ B)" class="venn-image">
+            </div>
             <p><strong>Inclusão (A ⊆ B)</strong></p>
         </div>
     </div>
 
     <script>
-        function createVennDiagram(containerId, type) {
-            let draw = SVG().addTo(`#${containerId} .venn-diagram`).size(200, 200);
-            let circleA = draw.circle(100).attr({ fill: 'rgba(255, 0, 0, 0.5)', cx: 70, cy: 100 });
-            let circleB = draw.circle(100).attr({ fill: 'rgba(0, 0, 255, 0.5)', cx: 130, cy: 100 });
-
-            if (type === "difference") {
-                circleB.attr({ fill: 'rgba(0, 0, 255, 0.2)' });
-            } else if (type === "subset") {
-                circleA.attr({ r: 80, cx: 100, fill: 'rgba(255, 0, 0, 0.5)' });
-                circleB.attr({ r: 100, cx: 100, fill: 'rgba(0, 0, 255, 0.5)' });
-            }
-        }
-
-        createVennDiagram("union");
-        createVennDiagram("intersection");
-        createVennDiagram("difference", "difference");
-        createVennDiagram("subset", "subset");
-
         const explanations = {
             "union": "A União (A ∪ B) representa todos os elementos pertencentes a A ou a B, sem repetição.",
             "intersection": "A Interseção (A ∩ B) contém apenas os elementos que pertencem a ambos os conjuntos A e B.",
